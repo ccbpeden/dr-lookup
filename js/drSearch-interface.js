@@ -1,4 +1,5 @@
 var DrSearch = require('./../js/drSearch.js').drSearchModule;
+var specialties = require('./../js/drSearch.js').specialtiesModule;
 var searchSample = require('./../js/search_sample.js').searchResultSample;
 var total;
 var skip;
@@ -16,7 +17,7 @@ var displaySuccess = function(searchResult, numberskipped, totaldocs)
     complete = true;
   } else if (searchResult.length > 0)
   {
-    displayResult +="<p>" + searchResult.length + " results matched your criteria.</p>";
+    displayResult +="<p>" + totaldocs + " results matched your criteria.</p>";
     displayResult += "<ul>";
     searchResult.forEach(function(doctor){
       var image = doctor[0];
@@ -62,7 +63,19 @@ var displayFailure = function(searchResult)
   $("#searchOutput").append(displayResult);
 };
 
+var createSpecialtyList = function(specialties){
+  output = "";
+  output += '<select id="doc_spec" class="form-control" name="specialties">';
+  output += '<option value=' + "" + '>' + "none" + '</option>';
+  for (var i = 0; i < specialties[0].length; i++) {
+    output += '<option value=' + specialties[1][i] + '>' + specialties[0][i] + '</option>';
+  }
+  output +='</select>';
+  $("#specialty_dropdown").append(output);
+};
+
 $(document).ready(function(){
+  specialties(createSpecialtyList);
   $("#search_terms").submit(function(event) {
     $("#searchOutput").empty();
     event.preventDefault();
@@ -70,18 +83,15 @@ $(document).ready(function(){
     skip = 0;
     var medicalIssue = $("#medical_issue").val();
     var doctorName = $("#doctor_name").val();
-    newDrSearch = new DrSearch(medicalIssue, doctorName);
+    var docSpecialty = $("#doc_spec").val();
+    console.log(medicalIssue + doctorName + docSpecialty);
+    newDrSearch = new DrSearch(medicalIssue, doctorName, docSpecialty);
     newDrSearch.getResults(skip, displaySuccess, displayFailure);
-    console.log(total);
   });
   $(window).scroll(function(){
     if($(document).height() - $(window).height() == $(window).scrollTop()){
-      console.log("end of document reached.");
-      console.log(total);
-      console.log(skip);
       if((total - skip)> 0){
         skip +=20;
-        console.log(skip);
         newDrSearch.getResults(skip, displaySuccess, displayFailure);
       }
     }
