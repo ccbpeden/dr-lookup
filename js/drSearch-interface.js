@@ -1,6 +1,5 @@
 var DrSearch = require('./../js/drSearch.js').drSearchModule;
 var specialties = require('./../js/drSearch.js').specialtiesModule;
-var searchSample = require('./../js/search_sample.js').searchResultSample;
 var total;
 var skip;
 
@@ -33,7 +32,6 @@ var displaySuccess = function(searchResult, numberskipped, totaldocs) {
       displayResult += '</li>';
     });
     displayResult += "</ul>";
-    displayResult += "Some doctor Info here!";
     complete = true;
   }
 
@@ -59,7 +57,7 @@ var displayFailure = function(searchResult) {
 
 var createSpecialtyList = function(specialties) {
   output = "";
-  output += '<label for="doc_spec">Looking for a particular specialization?</label>'
+  output += '<label for="doc_spec">Looking for a particular specialization?</label>';
   output += '<select id="doc_spec" class="form-control" name="specialties">';
   output += '<option value=' + "" + '>' + "none" + '</option>';
   for (var i = 0; i < specialties[0].length; i++) {
