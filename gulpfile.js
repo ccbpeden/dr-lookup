@@ -1,6 +1,5 @@
 var browserify = require('browserify');
 var browserSync = require('browser-sync').create();
-var buildProduction = utilities.env.production;
 var concat = require('gulp-concat');
 var del = require('del');
 var gulp = require('gulp');
@@ -21,6 +20,7 @@ var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var utilities = require('gulp-util');
+var buildProduction = utilities.env.production;
 
 gulp.task('clean', function () {
   return del.sync(['build', 'tmp']);
