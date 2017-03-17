@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="./build/css/vendor.css">
-    <link rel="stylesheet" href="./build/css/styles.css">
-    <script src="build/js/vendor.min.js"></script>
-    <script type="text/javascript" src="./build/js/app.js"></script>
-    <meta charset="utf-8">
-    <title>Doctor Search</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Get-A-Doc Search Engine!</h1>
-      <div class="row">
-        <div class="col-md-4">
-          <form id="search_terms">
-            <label for="medical_issue">What word best describes your medical issue:</label>
-            <input id="medical_issue" class="form-control" type="text">
-            <label for="doctor_name">If you want a particular doctor, enter the last name here:</label>
-            <input id="doctor_name" class="form-control" type="text">
-            <div id="specialty_dropdown">
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
-        </div><!--End column 4-->
-        <div id="searchOutput" class="col-md-8">
-          <h3>Results</h3>
-        </div><!--End column 8-->
-      </div><!--End Row-->
-    </div><!--End Container-->
-  </body>
+
+<head>
+  <link rel="stylesheet" href="./build/css/vendor.css">
+  <link rel="stylesheet" href="./build/css/styles.css">
+  <script src="build/js/vendor.min.js"></script>
+  <script type="text/javascript" src="./build/js/app.js"></script>
+  <meta charset="utf-8">
+  <title>Doctor Search</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Get-A-Doc Search Engine!</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <form id="search_terms">
+          <label for="medical_issue">What word best describes your medical issue:</label>
+          <input id="medical_issue" class="form-control" type="text">
+          <label for="doctor_name">If you want a particular doctor, enter the last name here:</label>
+          <input id="doctor_name" class="form-control" type="text">
+          <div id="specialty_dropdown">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+      <!--End column 4-->
+      <div id="searchOutput" class="col-md-8">
+        <h3>Results</h3>
+      </div>
+      <!--End column 8-->
+    </div>
+    <!--End Row-->
+  </div>
+  <!--End Container-->
+</body>
+
 </html>

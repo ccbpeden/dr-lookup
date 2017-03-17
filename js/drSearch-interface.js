@@ -4,22 +4,19 @@ var searchSample = require('./../js/search_sample.js').searchResultSample;
 var total;
 var skip;
 
-var displaySuccess = function(searchResult, numberskipped, totaldocs)
-{
+var displaySuccess = function(searchResult, numberskipped, totaldocs) {
   var displayResult = "";
   var complete = false;
   total = totaldocs;
   skip = numberskipped;
 
-  if(searchResult.length === 0)
-  {
-    displayResult +="<p>No results matched your criteria</p>";
+  if (searchResult.length === 0) {
+    displayResult += "<p>No results matched your criteria</p>";
     complete = true;
-  } else if (searchResult.length > 0)
-  {
-    displayResult +="<p>" + totaldocs + " results matched your criteria.</p>";
+  } else if (searchResult.length > 0) {
+    displayResult += "<p>" + totaldocs + " results matched your criteria.</p>";
     displayResult += "<ul>";
-    searchResult.forEach(function(doctor){
+    searchResult.forEach(function(doctor) {
       var image = doctor[0];
       var last_name = doctor[1];
       var first_name = doctor[2];
@@ -27,32 +24,29 @@ var displaySuccess = function(searchResult, numberskipped, totaldocs)
       var rating = doctor[4];
       var practices = doctor[5];
 
-      displayResult +='<li>';
-      displayResult +='<img src="' + image + '" alt="Dr. ' + first_name + ' ' + last_name + '">';
-      displayResult +='<p>Dr. ' + first_name + ' ' + last_name + '</p>';
-      displayResult +='<p>Specialty:' + spec + '</p>';
-      displayResult +='<p>Rating: ' + rating + '</p>';
-      displayResult +='<p>' + practices + '</p>';
-      displayResult +='</li>';
+      displayResult += '<li>';
+      displayResult += '<img src="' + image + '" alt="Dr. ' + first_name + ' ' + last_name + '">';
+      displayResult += '<p>Dr. ' + first_name + ' ' + last_name + '</p>';
+      displayResult += '<p>Specialty:' + spec + '</p>';
+      displayResult += '<p>Rating: ' + rating + '</p>';
+      displayResult += '<p>' + practices + '</p>';
+      displayResult += '</li>';
     });
     displayResult += "</ul>";
-    displayResult +="Some doctor Info here!";
+    displayResult += "Some doctor Info here!";
     complete = true;
   }
 
-  if(complete)
-  {
+  if (complete) {
     $("#searchOutput").append(displayResult);
   }
 };
 
 
-var displayFailure = function(searchResult)
-{
+var displayFailure = function(searchResult) {
   displayResult = "";
 
-  if(typeof searchResult == "object" && typeof searchResult.responseJSON == "object" && typeof searchResult.responseJSON.meta.message == "string")
-  {
+  if (typeof searchResult == "object" && typeof searchResult.responseJSON == "object" && typeof searchResult.responseJSON.meta.message == "string") {
     displayResult += '<p>Search failed for reason: ' + searchResult.responseJSON.meta.message + '</p>';
   } else {
     displayResult += '<p>Search failed for unknown reason</p>';
@@ -63,7 +57,7 @@ var displayFailure = function(searchResult)
   $("#searchOutput").append(displayResult);
 };
 
-var createSpecialtyList = function(specialties){
+var createSpecialtyList = function(specialties) {
   output = "";
   output += '<label for="doc_spec">Looking for a particular specialization?</label>'
   output += '<select id="doc_spec" class="form-control" name="specialties">';
@@ -71,11 +65,11 @@ var createSpecialtyList = function(specialties){
   for (var i = 0; i < specialties[0].length; i++) {
     output += '<option value=' + specialties[1][i] + '>' + specialties[0][i] + '</option>';
   }
-  output +='</select>';
+  output += '</select>';
   $("#specialty_dropdown").append(output);
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
   specialties(createSpecialtyList);
   $("#search_terms").submit(function(event) {
     $("#searchOutput").empty();
@@ -89,10 +83,10 @@ $(document).ready(function(){
     newDrSearch = new DrSearch(medicalIssue, doctorName, docSpecialty);
     newDrSearch.getResults(skip, displaySuccess, displayFailure);
   });
-  $(window).scroll(function(){
-    if($(document).height() - $(window).height() == $(window).scrollTop()){
-      if((total - skip)> 0){
-        skip +=20;
+  $(window).scroll(function() {
+    if ($(document).height() - $(window).height() == $(window).scrollTop()) {
+      if ((total - skip) > 0) {
+        skip += 20;
         newDrSearch.getResults(skip, displaySuccess, displayFailure);
       }
     }
