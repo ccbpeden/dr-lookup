@@ -1,18 +1,16 @@
- var apiKey = require ('./../.env').apiKey;
+var apiKey = require ('./../.env').apiKey;
 
- function DrSearch(medicalIssue)
- {
+function DrSearch(medicalIssue){
    this.medicalIssue = medicalIssue;
- }
+}
 
- DrSearch.prototype.constructURL = function(query)
- {
+DrSearch.prototype.constructURL = function(query) {
    var url = 'https://api.betterdoctor.com/2016-03-01/doctors?query=';
    url += query;
    url += '&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&limit=20&user_key=';
    url += apiKey;
    return url;
- };
+};
 
  DrSearch.prototype.getResults = function (page, doneCallBack, failCallBack) {
    var apiRequest = this.constructURL(this.medicalIssue); //change input for more complex queries later
@@ -22,6 +20,7 @@
      console.log(response);
      var result = [];
      var output = [];
+     var skip = response.meta.skip;
      response.data.forEach(function(doctor){
        result.push(doctor);
      });
@@ -30,7 +29,7 @@
         output.push(doc);
      });
      console.log(output);
-     doneCallBack(output);
+     doneCallBack(output, skip);
    })
    .fail(function(response){
      console.log(response);
@@ -72,12 +71,31 @@
     specialties = specialties.slice(0,-2);
     output.push(specialties);
 
-    if (doctor.ratings.length !== 0)
+    if (doctor.ratings.length > 0)
     {
-      output.push(doctor.ratings.image_url_small);
+      doctor.ratings.forEach(function(rating){
+        output.push(rating.image_url_small);
+      });
     } else
     {
       output.push("No rating available");
+    }
+
+    if (doctor.practices.length > 0)
+    {
+      var practices = "";
+      doctor.practices.forEach(function(practice)
+      {
+        practices += "Practice: " + practice.name +", ";
+        practice.phones.forEach(function(phone)
+        {
+          if (phone.type === "landline"){
+            practices += "Phone: " + phone.number + ", ";
+          }
+        });
+      });
+      practices = practices.slice(0,-2);
+      output.push(practices);
     }
     return output;
   };

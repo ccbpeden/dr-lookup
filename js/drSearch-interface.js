@@ -1,7 +1,7 @@
 var DrSearch = require('./../js/drSearch.js').drSearchModule;
 var searchSample = require('./../js/search_sample.js').searchResultSample;
 
-var displaySuccess = function(searchResult)
+var displaySuccess = function(searchResult, skip)
 {
   var displayResult = "";
   var complete = false;
