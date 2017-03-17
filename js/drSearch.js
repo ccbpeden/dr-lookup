@@ -4,23 +4,28 @@ function DrSearch(medicalIssue){
    this.medicalIssue = medicalIssue;
 }
 
-DrSearch.prototype.constructURL = function(query) {
+DrSearch.prototype.constructURL = function(query, skip) {
    var url = 'https://api.betterdoctor.com/2016-03-01/doctors?query=';
    url += query;
-   url += '&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&limit=20&user_key=';
+   url += '&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=';
+   url += skip;
+   url += '&limit=20&user_key=';
    url += apiKey;
    return url;
 };
 
- DrSearch.prototype.getResults = function (page, doneCallBack, failCallBack) {
-   var apiRequest = this.constructURL(this.medicalIssue); //change input for more complex queries later
+ DrSearch.prototype.getResults = function (skip, doneCallBack, failCallBack) {
+   var apiRequest = this.constructURL(this.medicalIssue, skip); //change input for more complex queries later
    var boundSieve = this.outputSieve.bind();
    $.get(apiRequest)
    .done(function(response){
      console.log(response);
      var result = [];
      var output = [];
-     var skip = response.meta.skip;
+     total = response.meta.total;
+     skip = response.meta.skip;
+     console.log(total);
+     console.log(skip);
      response.data.forEach(function(doctor){
        result.push(doctor);
      });
@@ -28,8 +33,7 @@ DrSearch.prototype.constructURL = function(query) {
         var doc = boundSieve(doctor);
         output.push(doc);
      });
-     console.log(output);
-     doneCallBack(output, skip);
+     doneCallBack(output, skip, total);
    })
    .fail(function(response){
      console.log(response);
@@ -74,7 +78,7 @@ DrSearch.prototype.constructURL = function(query) {
     if (doctor.ratings.length > 0)
     {
       doctor.ratings.forEach(function(rating){
-        output.push(rating.image_url_small);
+        output.push(rating.rating);
       });
     } else
     {
