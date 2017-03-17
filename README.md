@@ -40,7 +40,7 @@ gem install sass
 
 gulp jshint (to check for errors)
 
-gulp dev (to generate build, gulp prod to uglify/minify the build)
+gulp builddev (to generate build, gulp prod to uglify/minify the build)
 
 gulp servedev (to serve the dev build, gulp serveprod to serve the production)
 
