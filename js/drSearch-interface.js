@@ -69,7 +69,8 @@ $(document).ready(function(){
     total = 0;
     skip = 0;
     var medicalIssue = $("#medical_issue").val();
-    newDrSearch = new DrSearch(medicalIssue);
+    var doctorName = $("#doctor_name").val();
+    newDrSearch = new DrSearch(medicalIssue, doctorName);
     newDrSearch.getResults(skip, displaySuccess, displayFailure);
     console.log(total);
   });

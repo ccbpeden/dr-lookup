@@ -1,12 +1,20 @@
 var apiKey = require ('./../.env').apiKey;
 
-function DrSearch(medicalIssue){
+function DrSearch(medicalIssue, doctorName){
    this.medicalIssue = medicalIssue;
+   this.doctorName = doctorName;
 }
 
-DrSearch.prototype.constructURL = function(query, skip) {
-   var url = 'https://api.betterdoctor.com/2016-03-01/doctors?query=';
-   url += query;
+DrSearch.prototype.constructURL = function(issue, doctorName, skip) {
+   var url = 'https://api.betterdoctor.com/2016-03-01/doctors?';
+   if(doctorName !=""){
+   url += 'last_name=';
+   url += doctorName;
+  }
+   if(issue !=""){
+     url += 'query=';
+     url += issue;
+   }
    url += '&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=';
    url += skip;
    url += '&limit=20&user_key=';
@@ -15,7 +23,7 @@ DrSearch.prototype.constructURL = function(query, skip) {
 };
 
  DrSearch.prototype.getResults = function (skip, doneCallBack, failCallBack) {
-   var apiRequest = this.constructURL(this.medicalIssue, skip); //change input for more complex queries later
+   var apiRequest = this.constructURL(this.medicalIssue, this.doctorName, skip); //change input for more complex queries later
    var boundSieve = this.outputSieve.bind();
    $.get(apiRequest)
    .done(function(response){
