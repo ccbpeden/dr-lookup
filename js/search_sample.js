@@ -1846,4 +1846,4 @@ exports.searchResultSample =
       "npi": "1295891406"
     }
   ]
-}
+};
