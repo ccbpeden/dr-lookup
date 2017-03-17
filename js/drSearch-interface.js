@@ -8,7 +8,13 @@ var displaySuccess = function(searchResult)
 
 var displayFailure = function(searchResult)
 {
+  displayResult = "";
 
+  if(typeof searchResult == "object" && typeof searchResult.responseJSON == "object")
+  {
+    displayResult += '<p>Response Message: ' + searchResult.responseJSON.meta.message + '</p>';
+  }
+  $("#searchOutput").append(displayResult);
 };
 
 $(document).ready(function(){
