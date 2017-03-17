@@ -44,44 +44,6 @@ gulp dev (to generate build, gulp prod to uglify/minify the build)
 
 gulp servedev (to serve the dev build, gulp serveprod to serve the production)
 
-
-##Create New Project - Module Installation Commands
-
-npm init
-
-npm install gulp --save-dev
-
-npm install browserify --save-dev
-
-npm install gulp-concat --save-dev
-
-npm install gulp-uglify --save-dev
-
-npm install gulp-util --save-dev
-
-npm install del --save-dev
-
-npm install jshint --save-dev
-
-npm install vinyl-source-stream --save-dev
-
-npm install browser-sync --save-dev
-
-npm install bower-files --save-dev
-
-npm install gulp-jshint --save-dev
-
-npm install gulp-sass gulp-sourcemaps --save-dev
-
-
-bower install jquery --save
-
-bower install bootstrap --save
-
-*not currently used* bower install moment --save
-
-
-
 ## Remove build folder from git project (after adding it to .gitignore)
 
 git filter-branch --tree-filter 'rm -rf build' --prune-empty HEAD
@@ -97,10 +59,6 @@ git pair-commit -m "remove build from project"
 git gc
 
 git push origin master --force
-
-gem install sass
-
-npm install gulp-sass gulp-sourcemaps --save-dev
 
 
 ## Known Bugs
@@ -125,7 +83,7 @@ npm install gulp-sass gulp-sourcemaps --save-dev
   * identify necessary methods, their function and positions in data flow
   * identify necessary files to be created, their names and locations
 2. npm, gulp, and sass framework buildout
-  * initialize npm & gulp
+  * initialize npm & bower
   * install the following dependencies:
       * npm install gulp --save-dev
       * npm install browserify --save-dev
@@ -139,8 +97,6 @@ npm install gulp-sass gulp-sourcemaps --save-dev
       * npm install bower-files --save-dev
       * npm install gulp-jshint --save-dev
       * npm install gulp-sass gulp-sourcemaps --save-dev
-      * bower install jquery --save
-      * bower install bootstrap --save
       * bower install jquery --save
       * bower install bootstrap --save
   * build out gulpfile.js, testing dependency functionality piece by piece
