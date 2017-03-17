@@ -145,7 +145,7 @@ getSpecialties = function (doneCallBack) {
 
 specialtySieve = function(specialtiesobject){
   specialtynames = [];
-  specialtyuid = []
+  specialtyuid = [];
   specialtiesobject.data.forEach(function(object){
     specialtynames.push(object.name);
     specialtyuid.push(object.uid);

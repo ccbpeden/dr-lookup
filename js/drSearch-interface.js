@@ -65,6 +65,7 @@ var displayFailure = function(searchResult)
 
 var createSpecialtyList = function(specialties){
   output = "";
+  output += '<label for="doc_spec">Looking for a particular specialization?</label>'
   output += '<select id="doc_spec" class="form-control" name="specialties">';
   output += '<option value=' + "" + '>' + "none" + '</option>';
   for (var i = 0; i < specialties[0].length; i++) {
